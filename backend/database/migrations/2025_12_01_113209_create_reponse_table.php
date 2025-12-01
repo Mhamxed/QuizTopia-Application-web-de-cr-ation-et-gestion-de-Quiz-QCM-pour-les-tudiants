@@ -22,7 +22,7 @@ return new class extends Migration
 
             // Foreign key → UTILISATEUR
             $table->unsignedBigInteger('id_user');
-            $table->foreign('id_user')->references('id_user')->on('utilisateur')->onDelete('cascade');
+            $table->foreign('id_user')->references('id_user')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

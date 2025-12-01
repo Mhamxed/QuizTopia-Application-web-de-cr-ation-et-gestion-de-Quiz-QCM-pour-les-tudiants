@@ -21,7 +21,7 @@ return new class extends Migration
             // Composite primary key (id_user + id_quiz)
             $table->primary(['id_user', 'id_quiz']);
 
-            $table->foreign('id_user')->references('id_user')->on('utilisateur')->onDelete('cascade');
+            $table->foreign('id_user')->references('id_user')->on('users')->onDelete('cascade');
 
             $table->foreign('id_quiz')->references('id_quiz')->on('quiz')->onDelete('cascade');
             $table->timestamps();

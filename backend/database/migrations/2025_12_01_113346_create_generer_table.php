@@ -22,15 +22,9 @@ return new class extends Migration
             $table->primary(['id_quiz', 'id_resultat']);
 
             // FK constraints
-            $table->foreign('id_quiz')
-                ->references('id_quiz')
-                ->on('quiz')
-                ->onDelete('cascade');
+            $table->foreign('id_quiz')->references('id_quiz')->on('quiz')->onDelete('cascade');
 
-            $table->foreign('id_resultat')
-                ->references('id_resultat')
-                ->on('resultat')
-                ->onDelete('cascade');
+            $table->foreign('id_resultat')->references('id_resultat')->on('resultat')->onDelete('cascade');
             $table->timestamps();
         });
     }

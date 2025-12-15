@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuizMaster - Espace Étudiant</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header avec navigation -->
+        <header class="app-header">
+            <div class="header-left">
+                <h1><i class="fas fa-user-graduate"></i> Espace Étudiant</h1>
+                <p class="welcome-msg" id="studentWelcome">Bienvenue, Étudiant</p>
+            </div>
+            <div class="header-right">
+                <div class="user-menu">
+                    <span class="user-name" id="studentName">Marie Dupont</span>
+                    <div class="dropdown">
+                        <button class="dropdown-btn">
+                            <i class="fas fa-user-circle"></i>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="dropdown-content">
+                            <a href="#"><i class="fas fa-user"></i> Mon profil</a>
+                            <a href="#"><i class="fas fa-chart-line"></i> Mes statistiques</a>
+                            <a href="index.html"><i class="fas fa-sign-out-alt"></i> Déconnexion</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Navigation principale -->
+        <nav class="main-nav">
+            <ul>
+                <li><a href="#" class="nav-link active" data-section="studentDashboard"><i class="fas fa-tachometer-alt"></i> Tableau de bord</a></li>
+                <li><a href="#" class="nav-link" data-section="availableQuizzes"><i class="fas fa-list"></i> Quiz disponibles</a></li>
+                <li><a href="#" class="nav-link" data-section="myResults"><i class="fas fa-chart-bar"></i> Mes résultats</a></li>
+                <li><a href="#" class="nav-link" data-section="progress"><i class="fas fa-chart-line"></i> Ma progression</a></li>
+            </ul>
+        </nav>
+
+        <!-- Contenu principal -->
+        <main class="main-content">
+            <!-- Section Tableau de bord -->
+            <section id="studentDashboard" class="content-section active">
+                <div class="section-header">
+                    <h2><i class="fas fa-tachometer-alt"></i> Tableau de bord</h2>
+                </div>
+
+                <div class="stats-cards">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-question-circle"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="availableQuizzesCount">0</h3>
+                            <p>Quiz disponibles</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="completedQuizzesCount">0</h3>
+                            <p>Quiz complétés</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="myAverageScore">0%</h3>
+                            <p>Score moyen</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="rankingPosition">-</h3>
+                            <p>Classement</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-content">
+                    <div class="dashboard-column">
+                        <div class="dashboard-card">
+                            <h3><i class="fas fa-clock"></i> Quiz en attente</h3>
+                            <div class="card-content" id="pendingQuizzes">
+                                <!-- Quiz en attente -->
+                            </div>
+                        </div>
+                        <div class="dashboard-card">
+                            <h3><i class="fas fa-calendar-alt"></i> Dernières activités</h3>
+                            <div class="card-content" id="studentActivity">
+                                <!-- Activités récentes -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dashboard-column">
+                        <div class="dashboard-card">
+                            <h3><i class="fas fa-trophy"></i> Meilleurs scores</h3>
+                            <div class="card-content" id="bestScores">
+                                <!-- Meilleurs scores -->
+                            </div>
+                        </div>
+                        <div class="dashboard-card">
+                            <h3><i class="fas fa-lightbulb"></i> Suggestions</h3>
+                            <div class="card-content" id="suggestions">
+                                <!-- Suggestions -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section Quiz disponibles -->
+            <section id="availableQuizzes" class="content-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-list"></i> Quiz disponibles</h2>
+                    <div class="section-actions">
+                        <select id="filterModule" class="form-control">
+                            <option value="">Tous les modules</option>
+                            <option value="programmation">Programmation</option>
+                            <option value="bdd">Bases de données</option>
+                            <option value="algo">Algorithmique</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="quizzes-grid" id="availableQuizzesList">
+                    <!-- Quiz disponibles -->
+                </div>
+            </section>
+
+            <!-- Section Mes résultats -->
+            <section id="myResults" class="content-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-chart-bar"></i> Mes résultats</h2>
+                    <div class="section-actions">
+                        <select id="filterMyResults" class="form-control">
+                            <option value="">Tous les quiz</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Quiz</th>
+                                <th>Module</th>
+                                <th>Score</th>
+                                <th>Date</th>
+                                <th>Temps</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="myResultsTable">
+                            <!-- Mes résultats -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Section Progression -->
+            <section id="progress" class="content-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-chart-line"></i> Ma progression</h2>
+                </div>
+
+                <div class="progress-content">
+                    <div class="progress-chart">
+                        <canvas id="progressChart"></canvas>
+                    </div>
+                    <div class="progress-stats">
+                        <div class="progress-stat">
+                            <h4>Progression globale</h4>
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="overallProgress"></div>
+                            </div>
+                            <span id="overallProgressText">0%</span>
+                        </div>
+                        <div class="progress-stat">
+                            <h4>Meilleur module</h4>
+                            <p id="bestModule">-</p>
+                        </div>
+                        <div class="progress-stat">
+                            <h4>À améliorer</h4>
+                            <p id="improveModule">-</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Modals -->
+    <div class="modal" id="takeQuizModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="takeQuizTitle">Passer le quiz</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div id="takeQuizContent">
+                <!-- Contenu du quiz -->
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="resultModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="resultModalTitle">Résultats du quiz</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div id="resultModalContent">
+                <!-- Résultats -->
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

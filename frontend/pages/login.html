@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuizMaster - Connexion</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header class="login-header">
+            <a href="index.html" class="back-home">
+                <i class="fas fa-arrow-left"></i> Retour à l'accueil
+            </a>
+            <h1><i class="fas fa-graduation-cap"></i> QuizMaster</h1>
+        </header>
+        <main class="auth-container">
+            <div class="auth-tabs">
+                <button class="tab-btn active" id="loginTab">Connexion</button>
+                <button class="tab-btn" id="registerTab">Inscription</button>
+            </div>
+
+            <div class="auth-content">
+                <!-- Formulaire de connexion -->
+                <div id="loginForm" class="auth-form active">
+                    <h2>Connectez-vous à votre compte</h2>
+                    
+                    <div class="role-selection-auth">
+                        <div class="role-option" data-role="professor">
+                            <i class="fas fa-chalkboard-teacher"></i>
+                            <span>Professeur</span>
+                        </div>
+                        <div class="role-option" data-role="student">
+                            <i class="fas fa-user-graduate"></i>
+                            <span>Étudiant</span>
+                        </div>
+                    </div>
+
+                    <form id="loginFormData">
+                        <input type="hidden" id="loginRole" value="professor">
+                        
+                        <div class="form-group">
+                            <label for="loginEmail">Email</label>
+                            <input type="text" id="loginEmail" class="form-control" 
+                                   placeholder="Entrez votre email" required>
+                            <small class="form-text">N'importe quelle chaîne de caractères acceptée</small>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="loginPassword">Mot de passe</label>
+                            <input type="password" id="loginPassword" class="form-control" 
+                                   placeholder="Entrez votre mot de passe" required>
+                        </div>
+                        
+                        <div class="form-group form-check">
+                            <input type="checkbox" id="rememberMe" class="form-check-input">
+                            <label for="rememberMe" class="form-check-label">Se souvenir de moi</label>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary btn-block">
+                            <i class="fas fa-sign-in-alt"></i> Se connecter
+                        </button>
+                        
+                        <div class="auth-links">
+                            <a href="#" id="forgotPassword">Mot de passe oublié ?</a>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Formulaire d'inscription -->
+                <div id="registerForm" class="auth-form">
+                    <h2>Créez votre compte</h2>
+                    
+                    <div class="role-selection-auth">
+                        <div class="role-option active" data-role="professor">
+                            <i class="fas fa-chalkboard-teacher"></i>
+                            <span>Professeur</span>
+                        </div>
+                        <div class="role-option" data-role="student">
+                            <i class="fas fa-user-graduate"></i>
+                            <span>Étudiant</span>
+                        </div>
+                    </div>
+
+                    <!-- Formulaire d'inscription Professeur -->
+                    <form id="registerProfessorForm" class="register-form active">
+                        <input type="hidden" id="registerRole" value="professor">
+                        
+                        <div class="form-group">
+                            <label for="profName">Nom complet</label>
+                            <input type="text" id="profName" class="form-control" 
+                                   placeholder="Ex: Dr. Jean Martin" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="profEmail">Email</label>
+                            <input type="text" id="profEmail" class="form-control" 
+                                   placeholder="Entrez votre email" required>
+                            <small class="form-text">N'importe quelle chaîne de caractères acceptée</small>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="profSpecialty">Spécialité / Matière</label>
+                            <select id="profSpecialty" class="form-control" required>
+                                <option value="">Sélectionnez une spécialité</option>
+                                <option value="informatique">Informatique</option>
+                                <option value="mathematiques">Mathématiques</option>
+                                <option value="physique">Physique</option>
+                                <option value="francais">Français</option>
+                                <option value="anglais">Anglais</option>
+                                <option value="histoire">Histoire</option>
+                                <option value="autre">Autre</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="profPassword">Mot de passe</label>
+                            <input type="password" id="profPassword" class="form-control" 
+                                   placeholder="Créez un mot de passe" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="profConfirmPassword">Confirmez le mot de passe</label>
+                            <input type="password" id="profConfirmPassword" class="form-control" 
+                                   placeholder="Répétez le mot de passe" required>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary btn-block">
+                            <i class="fas fa-user-plus"></i> S'inscrire en tant que Professeur
+                        </button>
+                    </form>
+
+                    <!-- Formulaire d'inscription Étudiant -->
+                    <form id="registerStudentForm" class="register-form">
+                        <input type="hidden" id="registerRole" value="student">
+                        
+                        <div class="form-group">
+                            <label for="studentName">Nom complet</label>
+                            <input type="text" id="studentName" class="form-control" 
+                                   placeholder="Ex: Marie Dupont" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="studentEmail">Email</label>
+                            <input type="text" id="studentEmail" class="form-control" 
+                                   placeholder="Entrez votre email" required>
+                            <small class="form-text">N'importe quelle chaîne de caractères acceptée</small>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="studentGroup">Groupe / Classe</label>
+                            <select id="studentGroup" class="form-control" required>
+                                <option value="">Sélectionnez votre groupe</option>
+                                <option value="groupe1">Groupe 1</option>
+                                <option value="groupe2">Groupe 2</option>
+                                <option value="groupe3">Groupe 3</option>
+                                <option value="groupe4">Groupe 4</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="studentNiveau">Niveau d'études</label>
+                            <select id="studentNiveau" class="form-control" required>
+                                <option value="">Sélectionnez votre niveau</option>
+                                <option value="licence1">Licence 1</option>
+                                <option value="licence2">Licence 2</option>
+                                <option value="licence3">Licence 3</option>
+                                <option value="master1">Master 1</option>
+                                <option value="master2">Master 2</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="studentPassword">Mot de passe</label>
+                            <input type="password" id="studentPassword" class="form-control" 
+                                   placeholder="Créez un mot de passe" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="studentConfirmPassword">Confirmez le mot de passe</label>
+                            <input type="password" id="studentConfirmPassword" class="form-control" 
+                                   placeholder="Répétez le mot de passe" required>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-secondary btn-block">
+                            <i class="fas fa-user-plus"></i> S'inscrire en tant qu'Étudiant
+                        </button>
+                    </form>
+
+                    <div class="auth-switch">
+                        <p>Déjà un compte ? <a href="#" id="switchToLogin">Connectez-vous ici</a></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="auth-info">
+                <div class="info-box">
+                    <div class="icon-headline">
+                        <i class="fas fa-shield-alt"></i>
+                        <h3>Sécurité garantie</h3>
+                    </div>
+                    <p>Vos données sont protégées et sécurisées</p>
+                </div>
+                <div class="info-box">
+                    <div class="icon-headline">
+                        <i class="fas fa-users"></i>
+                        <h3>Communauté active</h3>
+                    </div>
+                    <p>Rejoignez des milliers d'utilisateurs</p>
+                </div>
+                <div class="info-box">
+                    <div class="icon-headline">
+                        <i class="fas fa-headset"></i>
+                        <h3>Support 24/7</h3>
+                    </div>
+                    <p>Notre équipe est là pour vous aider</p>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>QuizMaster &copy; 2023 - Connexion sécurisée</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

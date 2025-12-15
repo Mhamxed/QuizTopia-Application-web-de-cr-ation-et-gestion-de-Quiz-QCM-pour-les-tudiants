@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuizMaster - Espace Professeur</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header avec navigation -->
+        <header class="app-header">
+            <div class="header-left">
+                <h1><i class="fas fa-chalkboard-teacher"></i> Espace Professeur</h1>
+                <p class="welcome-msg" id="welcomeMessage">Bienvenue, Professeur</p>
+            </div>
+            <div class="header-right">
+                <div class="user-menu">
+                    <span class="user-name" id="professorName">Dr. Martin</span>
+                    <div class="dropdown">
+                        <button class="dropdown-btn">
+                            <i class="fas fa-user-circle"></i>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="dropdown-content">
+                            <a href="#"><i class="fas fa-user"></i> Mon profil</a>
+                            <a href="#"><i class="fas fa-cog"></i> Paramètres</a>
+                            <a href="index.html"><i class="fas fa-sign-out-alt"></i> Déconnexion</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Navigation principale -->
+        <nav class="main-nav">
+            <ul>
+                <li><a href="#" class="nav-link active" data-section="dashboard"><i class="fas fa-tachometer-alt"></i> Tableau de bord</a></li>
+                <li><a href="#" class="nav-link" data-section="quizzes"><i class="fas fa-list"></i> Mes Quiz</a></li>
+                <li><a href="#" class="nav-link" data-section="createQuiz"><i class="fas fa-plus-circle"></i> Créer Quiz</a></li>
+                <li><a href="#" class="nav-link" data-section="students"><i class="fas fa-users"></i> Étudiants</a></li>
+                <li><a href="#" class="nav-link" data-section="results"><i class="fas fa-chart-bar"></i> Résultats</a></li>
+            </ul>
+        </nav>
+
+        <!-- Contenu principal -->
+        <main class="main-content">
+            <!-- Section Tableau de bord -->
+            <section id="dashboard" class="content-section active">
+                <div class="section-header">
+                    <h2><i class="fas fa-tachometer-alt"></i> Tableau de bord</h2>
+                    <div class="section-actions">
+                        <button class="btn btn-primary" id="quickCreateQuiz">
+                            <i class="fas fa-plus"></i> Créer un quiz rapide
+                        </button>
+                    </div>
+                </div>
+
+                <div class="stats-cards">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-question-circle"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="totalQuizzes">0</h3>
+                            <p>Quiz créés</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="totalStudents">0</h3>
+                            <p>Étudiants</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="averageScore">0%</h3>
+                            <p>Score moyen</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="activeQuizzes">0</h3>
+                            <p>Quiz actifs</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-content">
+                    <div class="dashboard-column">
+                        <div class="dashboard-card">
+                            <h3><i class="fas fa-history"></i> Derniers quiz créés</h3>
+                            <div class="card-content" id="recentQuizzesList">
+                                <!-- Liste des quiz récents -->
+                            </div>
+                        </div>
+                        <div class="dashboard-card">
+                            <h3><i class="fas fa-calendar-alt"></i> Activité récente</h3>
+                            <div class="card-content" id="recentActivity">
+                                <!-- Activité récente -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dashboard-column">
+                        <div class="dashboard-card">
+                            <h3><i class="fas fa-trophy"></i> Meilleurs étudiants</h3>
+                            <div class="card-content" id="topStudents">
+                                <!-- Top étudiants -->
+                            </div>
+                        </div>
+                        <div class="dashboard-card">
+                            <h3><i class="fas fa-bell"></i> Notifications</h3>
+                            <div class="card-content" id="notifications">
+                                <!-- Notifications -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section Mes Quiz -->
+            <section id="quizzes" class="content-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-list"></i> Mes Quiz</h2>
+                    <div class="section-actions">
+                        <button class="btn btn-primary" id="addNewQuiz">
+                            <i class="fas fa-plus"></i> Nouveau quiz
+                        </button>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Titre</th>
+                                <th>Module</th>
+                                <th>Durée</th>
+                                <th>Questions</th>
+                                <th>Participants</th>
+                                <th>Statut</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="quizzesTable">
+                            <!-- Liste des quiz -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Section Créer Quiz -->
+            <section id="createQuiz" class="content-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-plus-circle"></i> Créer un nouveau Quiz</h2>
+                </div>
+
+                <form id="quizForm" class="quiz-form">
+                    <input type="hidden" id="quizId">
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="quizTitle">Titre du Quiz *</label>
+                            <input type="text" id="quizTitle" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="quizModule">Module *</label>
+                            <select id="quizModule" class="form-control" required>
+                                <option value="">Sélectionnez un module</option>
+                                <option value="programmation">Programmation Web</option>
+                                <option value="bdd">Bases de données</option>
+                                <option value="algo">Algorithmique</option>
+                                <option value="reseaux">Réseaux</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="quizDuration">Durée (minutes) *</label>
+                            <input type="number" id="quizDuration" class="form-control" min="5" max="180" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="quizGroup">Groupe cible *</label>
+                            <select id="quizGroup" class="form-control" required>
+                                <option value="">Sélectionnez un groupe</option>
+                                <option value="groupe1">Groupe 1</option>
+                                <option value="groupe2">Groupe 2</option>
+                                <option value="tous">Tous les groupes</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="quizDescription">Description</label>
+                        <textarea id="quizDescription" class="form-control" rows="3"></textarea>
+                    </div>
+
+                    <div class="questions-section">
+                        <h3><i class="fas fa-question-circle"></i> Questions</h3>
+                        <div id="questionsContainer">
+                            <!-- Questions seront ajoutées ici -->
+                        </div>
+                        <button type="button" class="btn btn-secondary" id="addQuestionBtn">
+                            <i class="fas fa-plus"></i> Ajouter une question
+                        </button>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">Enregistrer le Quiz</button>
+                        <button type="button" class="btn btn-secondary" id="cancelQuizBtn">Annuler</button>
+                    </div>
+                </form>
+            </section>
+
+            <!-- Section Étudiants -->
+            <section id="students" class="content-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-users"></i> Gestion des Étudiants</h2>
+                    <div class="section-actions">
+                        <button class="btn btn-primary" id="addStudentBtn">
+                            <i class="fas fa-user-plus"></i> Ajouter un étudiant
+                        </button>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Nom</th>
+                                <th>Email</th>
+                                <th>Groupe</th>
+                                <th>Quiz passés</th>
+                                <th>Score moyen</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="studentsTable">
+                            <!-- Liste des étudiants -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Section Résultats -->
+            <section id="results" class="content-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-chart-bar"></i> Résultats des Quiz</h2>
+                    <div class="section-actions">
+                        <select id="filterQuiz" class="form-control">
+                            <option value="">Tous les quiz</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Étudiant</th>
+                                <th>Quiz</th>
+                                <th>Score</th>
+                                <th>Date</th>
+                                <th>Temps</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="resultsTable">
+                            <!-- Liste des résultats -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Modals -->
+    <div class="modal" id="studentModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="studentModalTitle">Ajouter un Étudiant</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <form id="studentForm">
+                <!-- Formulaire étudiant -->
+            </form>
+        </div>
+    </div>
+
+    <div class="modal" id="quizModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="quizModalTitle">Détails du Quiz</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div id="quizModalContent">
+                <!-- Contenu du modal -->
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

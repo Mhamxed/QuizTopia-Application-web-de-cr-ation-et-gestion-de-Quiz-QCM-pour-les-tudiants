@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuizMaster - Accueil</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header class="main-header">
+            <h1><i class="fas fa-graduation-cap"></i> QuizMaster</h1>
+            <p class="subtitle">Plateforme de création et gestion de Quiz/QCM</p>
+        </header>
+
+        <main class="landing-page">
+            <div class="hero">
+                <div class="hero-content">
+                    <h2>Bienvenue sur QuizMaster</h2>
+                    <p>La plateforme idéale pour créer, gérer et passer des quiz éducatifs en ligne.</p>
+                    
+                    <div class="features">
+                        <div class="feature">
+                            <i class="fas fa-chalkboard-teacher"></i>
+                            <h3>Pour les Professeurs</h3>
+                            <p>Créez des quiz, gérez vos étudiants et suivez leurs progrès</p>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-user-graduate"></i>
+                            <h3>Pour les Étudiants</h3>
+                            <p>Passez des quiz, améliorez vos connaissances et suivez vos scores</p>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-chart-line"></i>
+                            <h3>Analytiques Avancées</h3>
+                            <p>Visualisez les résultats et identifiez les points à améliorer</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="role-selection">
+                <h2>Choisissez votre rôle</h2>
+                <p>Connectez-vous ou inscrivez-vous en tant que :</p>
+                
+                <div class="role-cards">
+                    <div class="role-card professor-card">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                        <h3>Professeur</h3>
+                        <p>Créez et gérez des quiz pour vos étudiants</p>
+                        <a href="login.html?role=professor" class="btn btn-primary">Accéder en tant que Professeur</a>
+                        <div class="role-features">
+                            <p><i class="fas fa-check"></i> Création de quiz</p>
+                            <p><i class="fas fa-check"></i> Gestion des étudiants</p>
+                            <p><i class="fas fa-check"></i> Suivi des résultats</p>
+                        </div>
+                    </div>
+                    
+                    <div class="role-card student-card">
+                        <i class="fas fa-user-graduate"></i>
+                        <h3>Étudiant</h3>
+                        <p>Passez des quiz et suivez vos progrès</p>
+                        <a href="login.html?role=student" class="btn btn-secondary">Accéder en tant qu'Étudiant</a>
+                        <div class="role-features">
+                            <p><i class="fas fa-check"></i> Quiz disponibles</p>
+                            <p><i class="fas fa-check"></i> Résultats détaillés</p>
+                            <p><i class="fas fa-check"></i> Progression suivie</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="registration-info">
+                    <p>Pas encore de compte ? <a href="login.html" class="highlight">Inscrivez-vous ici</a></p>
+                    <p class="note"><i class="fas fa-info-circle"></i> Les inscriptions sont séparées pour les professeurs et les étudiants</p>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>QuizMaster &copy; 2023 - Application de gestion de quiz pour l'éducation</p>
+            <p class="footer-links">
+                <a href="#"><i class="fas fa-question-circle"></i> Aide</a>
+                <a href="#"><i class="fas fa-envelope"></i> Contact</a>
+                <a href="#"><i class="fas fa-shield-alt"></i> Confidentialité</a>
+            </p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

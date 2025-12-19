@@ -7,59 +7,67 @@ use Illuminate\Http\Request;
 
 class ChoixController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    // GET all choices
     public function index()
     {
-        //
+        return response()->json(Choix::getAllChoix());
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    // GET single choice
+    public function show($id)
     {
-        //
+        $choix = Choix::getChoixById($id);
+        if (!$choix) {
+            return response()->json(['message' => 'Choix not found'], 404);
+        }
+        return response()->json($choix);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    // CREATE a choice
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'Texte_Choix' => 'required|string',
+            'Est_Correct' => 'required|boolean',
+            'ID_Resultat' => 'required|integer',
+            'ID_Question' => 'required|integer',
+        ]);
+
+        $choix = Choix::createChoix(
+            $request->Texte_Choix,
+            $request->Est_Correct,
+            $request->ID_Resultat,
+            $request->ID_Question
+        );
+
+        return response()->json($choix, 201);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Choix $choix)
+    // UPDATE a choice
+    public function update(Request $request, $id)
     {
-        //
+        $choix = Choix::updateChoix(
+            $id,
+            $request->Texte_Choix ?? null,
+            $request->Est_Correct ?? null,
+            $request->ID_Resultat ?? null,
+            $request->ID_Question ?? null
+        );
+
+        if (!$choix) {
+            return response()->json(['message' => 'Choix not found'], 404);
+        }
+
+        return response()->json($choix);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Choix $choix)
+    // DELETE a choice
+    public function destroy($id)
     {
-        //
-    }
+        if (!Choix::deleteChoix($id)) {
+            return response()->json(['message' => 'Choix not found'], 404);
+        }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Choix $choix)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Choix $choix)
-    {
-        //
+        return response()->json(['message' => 'Choix deleted successfully']);
     }
 }

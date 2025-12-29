@@ -8,11 +8,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Choix extends Model
 {
     use HasFactory;
-
     protected $table = 'questions';
-
     protected $primaryKey = 'ID_Question';
-
     public $incrementing = true;
     protected $keyType = 'int';
 
@@ -22,26 +19,15 @@ class Choix extends Model
         'Enonce_Question',
         'ID_Quiz',
     ];
-
-    /**
-     * A question belongs to a quiz
-     */
     public function quiz()
     {
         return $this->belongsTo(Quiz::class, 'ID_Quiz', 'ID_Quiz');
     }
-
-    /**
-     * A question has many choices
-     */
     public function choixes()
     {
         return $this->hasMany(Choix::class, 'ID_Question', 'ID_Question');
     }
 
-    /**
-     * A question has many results
-     */
     public function resultats()
     {
         return $this->hasMany(Resultat::class, 'ID_Question', 'ID_Question');

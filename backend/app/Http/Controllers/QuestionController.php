@@ -7,17 +7,10 @@ use Illuminate\Http\Request;
 
 class QuestionController extends Controller
 {
-    /**
-     * Display all questions
-     */
     public function index()
     {
         return Question::with('quiz')->get();
     }
-
-    /**
-     * Store a new question
-     */
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -31,20 +24,12 @@ class QuestionController extends Controller
 
         return response()->json($question, 201);
     }
-
-    /**
-     * Show a single question
-     */
     public function show($id)
     {
         return Question::with(['quiz', 'resultats'])
             ->where('ID_Question', $id)
             ->firstOrFail();
     }
-
-    /**
-     * Update a question
-     */
     public function update(Request $request, $id)
     {
         $question = Question::where('ID_Question', $id)->firstOrFail();
@@ -60,10 +45,6 @@ class QuestionController extends Controller
 
         return response()->json($question);
     }
-
-    /**
-     * Delete a question
-     */
     public function destroy($id)
     {
         $question = Question::where('ID_Question', $id)->firstOrFail();

@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('resultats', function (Blueprint $table) {
-            $table->id('ID_Resultat');         // Primary key
+            $table->id('ID_Resultat');         
             $table->float('Points_Obtenus');   // Points obtained
 
             $table->unsignedBigInteger('ID_Question'); // Foreign key to Question

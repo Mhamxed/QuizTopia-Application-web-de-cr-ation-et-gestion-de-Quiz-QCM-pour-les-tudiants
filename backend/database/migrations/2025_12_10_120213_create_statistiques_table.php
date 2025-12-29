@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('statistiques', function (Blueprint $table) {
-            $table->id('ID_Stats');        // Primary key
+            $table->id('ID_Stats');        
             $table->float('Score_Moyen');  // Average score
             $table->float('Taux_Reussite'); // Success rate
             $table->date('Date_Calcul');    // Calculation date

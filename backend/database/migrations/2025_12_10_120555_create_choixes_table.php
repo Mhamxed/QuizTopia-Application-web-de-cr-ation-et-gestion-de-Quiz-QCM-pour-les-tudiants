@@ -12,9 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('choixes', function (Blueprint $table) {
-            $table->id('ID_Choix');           // Primary key
+            $table->id('ID_Choix');           
             $table->string('Texte_Choix');
-            $table->boolean('Est_Correct');    // True/False
+            $table->boolean('Est_Correct');    // True or False
 
             $table->unsignedBigInteger('ID_Resultat'); // Foreign key to Resultat
             $table->unsignedBigInteger('ID_Question'); // Foreign key to Question

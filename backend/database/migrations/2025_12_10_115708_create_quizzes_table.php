@@ -12,13 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('quizzes', function (Blueprint $table) {
-            $table->id('ID_Quiz');               // Primary key
+            $table->id('ID_Quiz');               
             $table->string('Titre_Quiz');
             $table->integer('Duree_Minutes');
             $table->date('Date_Creation');
 
-            $table->unsignedBigInteger('ID_Module');   // Foreign key to Module
-            $table->unsignedBigInteger('ID_Prof');     // Foreign key to Professeur
+            $table->unsignedBigInteger('ID_Module');   
+            $table->unsignedBigInteger('ID_Prof');     
 
             // Foreign key constraints
             $table->foreign('ID_Module')->references('ID_Module')->on('modules')->onDelete('cascade');

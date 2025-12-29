@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('session_quizzes', function (Blueprint $table) {
-            $table->id('ID_Session');           // Primary key
+            $table->id('ID_Session');           
             $table->date('Date_Passage');       // Quiz date
             $table->float('Score_Obtenu');      // Score obtained
             $table->integer('Duree_Effective'); // Duration in minutes or seconds

@@ -3,57 +3,40 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Question extends Model
 {
-    protected $table = 'question';
+    use HasFactory;
+
+    protected $table = 'questions';
+
+    // Custom primary key
     protected $primaryKey = 'ID_Question';
-    public $timestamps = true;
 
-    // CREATE
-    public static function add($numOrdre, $points, $enonce, $idQuiz)
+    public $incrementing = true;
+    protected $keyType = 'int';
+
+    protected $fillable = [
+        'Num_Ordre',
+        'Point_Question',
+        'Enonce_Question',
+        'ID_Quiz',
+    ];
+
+    /**
+     * A Question belongs to a Quiz
+     */
+    public function quiz()
     {
-        $q = new Question();
-        $q->Num_Ordre = $numOrdre;
-        $q->Point_Question = $points;
-        $q->Enonce_Question = $enonce;
-        $q->ID_Quiz = $idQuiz;
-        $q->save();
-
-        return $q;
+        return $this->belongsTo(Quiz::class, 'ID_Quiz', 'ID_Quiz');
     }
 
-    // READ ALL
-    public static function allQuestions()
+    /**
+     * A Question has many Resultats
+     */
+    public function resultats()
     {
-        return Question::all();
-    }
-    // READ ONE
-    public static function findById($id)
-    {
-        return Question::find($id);
-    }
-    // UPDATE
-    public static function edit($id, $numOrdre, $points, $enonce)
-    {
-        $q = Question::find($id);
-        if (!$q) return null;
-
-        $q->Num_Ordre = $numOrdre;
-        $q->Point_Question = $points;
-        $q->Enonce_Question = $enonce;
-        $q->save();
-
-        return $q;
-    }
-
-    // DELETE
-    public static function remove($id)
-    {
-        $q = Question::find($id);
-        if (!$q) return false;
-
-        $q->delete();
-        return true;
+        return $this->hasMany(Resultat::class, 'ID_Question', 'ID_Question');
     }
 }

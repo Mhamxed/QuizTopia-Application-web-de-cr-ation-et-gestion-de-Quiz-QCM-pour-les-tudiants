@@ -7,63 +7,65 @@ use Illuminate\Http\Request;
 
 class ResultatController extends Controller
 {
-    // GET all resultats
+    /**
+     * Display a listing of the results.
+     */
     public function index()
     {
-        return response()->json(Resultat::getAllResultats());
+        return Resultat::with(['question', 'sessionQuiz'])->get();
     }
 
-    // GET single resultat
-    public function show($id)
-    {
-        $resultat = Resultat::getResultatById($id);
-        if (!$resultat) {
-            return response()->json(['message' => 'Resultat not found'], 404);
-        }
-        return response()->json($resultat);
-    }
-
-    // CREATE a resultat
+    /**
+     * Store a newly created result.
+     */
     public function store(Request $request)
     {
-        $request->validate([
-            'Points_Obtenus' => 'required|integer',
-            'ID_Question' => 'required|integer',
-            'ID_Session' => 'required|integer',
+        $validated = $request->validate([
+            'Points_Obtenus' => 'required|numeric',
+            'ID_Question'   => 'required|exists:questions,ID_Question',
+            'ID_Session'    => 'required|exists:session_quizzes,ID_Session',
         ]);
 
-        $resultat = Resultat::createResultat(
-            $request->Points_Obtenus,
-            $request->ID_Question,
-            $request->ID_Session
-        );
+        $resultat = Resultat::create($validated);
 
         return response()->json($resultat, 201);
     }
 
-    // UPDATE a resultat
+    /**
+     * Display the specified result.
+     */
+    public function show($id)
+    {
+        return Resultat::with(['question', 'sessionQuiz'])
+            ->where('ID_Resultat', $id)
+            ->firstOrFail();
+    }
+
+    /**
+     * Update the specified result.
+     */
     public function update(Request $request, $id)
     {
-        $resultat = Resultat::updateResultat(
-            $id,
-            $request->Points_Obtenus ?? null,
-            $request->ID_Question ?? null,
-            $request->ID_Session ?? null
-        );
+        $resultat = Resultat::where('ID_Resultat', $id)->firstOrFail();
 
-        if (!$resultat) {
-            return response()->json(['message' => 'Resultat not found'], 404);
-        }
+        $validated = $request->validate([
+            'Points_Obtenus' => 'sometimes|numeric',
+            'ID_Question'   => 'sometimes|exists:questions,ID_Question',
+            'ID_Session'    => 'sometimes|exists:session_quizzes,ID_Session',
+        ]);
+
+        $resultat->update($validated);
 
         return response()->json($resultat);
     }
 
-    // DELETE a resultat
+    /**
+     * Remove the specified result.
+     */
     public function destroy($id)
     {
-        if (!Resultat::deleteResultat($id)) {
-            return response()->json(['message' => 'Resultat not found'], 404);
-        }
+        $resultat = Resultat::where('ID_Resultat', $id)->firstOrFail();
+        $resultat->delete();
 
         return response()->json(['message' => 'Resultat deleted successfully']);
     }

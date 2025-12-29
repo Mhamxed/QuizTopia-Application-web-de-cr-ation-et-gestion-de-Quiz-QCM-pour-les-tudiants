@@ -3,64 +3,47 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Choix extends Model
 {
-    protected $table = 'choixes';
-    protected $primaryKey = 'ID_Choix';
-    public $timestamps = true;
+    use HasFactory;
 
-    // CREATE
-    public static function createChoix($texteChoix, $estCorrect, $idResultat, $idQuestion)
+    protected $table = 'questions';
+
+    protected $primaryKey = 'ID_Question';
+
+    public $incrementing = true;
+    protected $keyType = 'int';
+
+    protected $fillable = [
+        'Num_Ordre',
+        'Point_Question',
+        'Enonce_Question',
+        'ID_Quiz',
+    ];
+
+    /**
+     * A question belongs to a quiz
+     */
+    public function quiz()
     {
-        $choix = new self();
-        $choix->Texte_Choix = $texteChoix;
-        $choix->Est_Correct = $estCorrect;
-        $choix->ID_Resultat = $idResultat;
-        $choix->ID_Question = $idQuestion;
-        $choix->save();
-
-        return $choix;
+        return $this->belongsTo(Quiz::class, 'ID_Quiz', 'ID_Quiz');
     }
 
-    // READ ALL
-    public static function getAllChoix()
+    /**
+     * A question has many choices
+     */
+    public function choixes()
     {
-        return self::all();
+        return $this->hasMany(Choix::class, 'ID_Question', 'ID_Question');
     }
 
-    // READ ONE
-    public static function getChoixById($id)
+    /**
+     * A question has many results
+     */
+    public function resultats()
     {
-        return self::find($id);
+        return $this->hasMany(Resultat::class, 'ID_Question', 'ID_Question');
     }
-
-    // UPDATE
-    public static function updateChoix($id, $texteChoix = null, $estCorrect = null, $idResultat = null, $idQuestion = null)
-    {
-        $choix = self::find($id);
-        if (!$choix) {
-            return null;
-        }
-
-        if ($texteChoix !== null) $choix->Texte_Choix = $texteChoix;
-        if ($estCorrect !== null) $choix->Est_Correct = $estCorrect;
-        if ($idResultat !== null) $choix->ID_Resultat = $idResultat;
-        if ($idQuestion !== null) $choix->ID_Question = $idQuestion;
-
-        $choix->save();
-        return $choix;
-    }
-
-    // DELETE
-    public static function deleteChoix($id)
-    {
-        $choix = self::find($id);
-        if (!$choix) {
-            return false;
-        }
-
-        return $choix->delete();
-    }
-
 }

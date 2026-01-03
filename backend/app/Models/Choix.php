@@ -2,34 +2,42 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class Choix extends Model
 {
     use HasFactory;
-    protected $table = 'questions';
-    protected $primaryKey = 'ID_Question';
-    public $incrementing = true;
-    protected $keyType = 'int';
 
+    // Table name (optional if it matches the plural of the class)
+    protected $table = 'choixes';
+
+    // Primary key
+    protected $primaryKey = 'ID_Choix';
+
+    // Mass-assignable fields
     protected $fillable = [
-        'Num_Ordre',
-        'Point_Question',
-        'Enonce_Question',
-        'ID_Quiz',
+        'Texte_Choix',
+        'Est_Correct',
+        'ID_Resultat',
+        'ID_Question',
     ];
-    public function quiz()
+
+    // Relationships
+
+    /**
+     * A choix belongs to one question
+     */
+    public function question()
     {
-        return $this->belongsTo(Quiz::class, 'ID_Quiz', 'ID_Quiz');
-    }
-    public function choixes()
-    {
-        return $this->hasMany(Choix::class, 'ID_Question', 'ID_Question');
+        return $this->belongsTo(Question::class, 'ID_Question', 'ID_Question');
     }
 
-    public function resultats()
+    /**
+     * A choix belongs to one resultat
+     */
+    public function resultat()
     {
-        return $this->hasMany(Resultat::class, 'ID_Question', 'ID_Question');
+        return $this->belongsTo(Resultat::class, 'ID_Resultat', 'ID_Resultat');
     }
 }

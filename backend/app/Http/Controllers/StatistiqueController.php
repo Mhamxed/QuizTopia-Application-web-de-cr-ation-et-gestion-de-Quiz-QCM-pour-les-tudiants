@@ -7,59 +7,38 @@ use Illuminate\Http\Request;
 
 class StatistiqueController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
+    public function index() { return Statistique::with('quiz')->get(); }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'Score_Moyen' => 'required|numeric',
+            'Taux_Reussite' => 'required|numeric',
+            'Date_Calcul' => 'required|date',
+            'ID_Quiz' => 'required|exists:quizzes,ID_Quiz',
+        ]);
+
+        return Statistique::create($validated);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Statistique $statistique)
-    {
-        //
-    }
+    public function show(Statistique $statistique) { return $statistique->load('quiz'); }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Statistique $statistique)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Statistique $statistique)
     {
-        //
+        $validated = $request->validate([
+            'Score_Moyen' => 'sometimes|numeric',
+            'Taux_Reussite' => 'sometimes|numeric',
+            'Date_Calcul' => 'sometimes|date',
+            'ID_Quiz' => 'sometimes|exists:quizzes,ID_Quiz',
+        ]);
+
+        $statistique->update($validated);
+        return $statistique;
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Statistique $statistique)
     {
-        //
+        $statistique->delete();
+        return response()->json(['message' => 'Statistique deleted']);
     }
 }

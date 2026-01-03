@@ -7,59 +7,40 @@ use Illuminate\Http\Request;
 
 class EtudiantController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
+    public function index() { return Etudiant::with('groupe')->get(); }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'Nom' => 'required|string|max:255',
+            'Prenom' => 'required|string|max:255',
+            'Email' => 'required|email|unique:etudiants,Email',
+            'MotDePasse' => 'required|string',
+            'id_Groupe' => 'required|exists:groupes,ID_Groupe',
+        ]);
+
+        return Etudiant::create($validated);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Etudiant $etudiant)
-    {
-        //
-    }
+    public function show(Etudiant $etudiant) { return $etudiant->load('groupe'); }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Etudiant $etudiant)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Etudiant $etudiant)
     {
-        //
+        $validated = $request->validate([
+            'Nom' => 'sometimes|string|max:255',
+            'Prenom' => 'sometimes|string|max:255',
+            'Email' => 'sometimes|email|unique:etudiants,Email,' . $etudiant->ID_Etudiant . ',ID_Etudiant',
+            'MotDePasse' => 'sometimes|string',
+            'id_Groupe' => 'sometimes|exists:groupes,ID_Groupe',
+        ]);
+
+        $etudiant->update($validated);
+        return $etudiant;
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Etudiant $etudiant)
     {
-        //
+        $etudiant->delete();
+        return response()->json(['message' => 'Etudiant deleted']);
     }
 }

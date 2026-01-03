@@ -7,59 +7,26 @@ use Illuminate\Http\Request;
 
 class ModuleController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
+    public function index() { return Module::with('quizzes')->get(); }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate(['Nom_Module' => 'required|string|max:255']);
+        return Module::create($validated);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Module $module)
-    {
-        //
-    }
+    public function show(Module $module) { return $module->load('quizzes'); }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Module $module)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Module $module)
     {
-        //
+        $validated = $request->validate(['Nom_Module' => 'sometimes|string|max:255']);
+        $module->update($validated);
+        return $module;
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Module $module)
     {
-        //
+        $module->delete();
+        return response()->json(['message' => 'Module deleted']);
     }
 }

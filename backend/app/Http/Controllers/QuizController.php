@@ -7,59 +7,40 @@ use Illuminate\Http\Request;
 
 class QuizController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
+    public function index() { return Quiz::with(['module','professeur','questions'])->get(); }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'Titre_Quiz' => 'required|string|max:255',
+            'Duree_Minutes' => 'required|integer',
+            'Date_Creation' => 'required|date',
+            'ID_Module' => 'required|exists:modules,ID_Module',
+            'ID_Prof' => 'required|exists:professeurs,ID_Prof',
+        ]);
+
+        return Quiz::create($validated);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Quiz $quiz)
-    {
-        //
-    }
+    public function show(Quiz $quiz) { return $quiz->load(['module','professeur','questions']); }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Quiz $quiz)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Quiz $quiz)
     {
-        //
+        $validated = $request->validate([
+            'Titre_Quiz' => 'sometimes|string|max:255',
+            'Duree_Minutes' => 'sometimes|integer',
+            'Date_Creation' => 'sometimes|date',
+            'ID_Module' => 'sometimes|exists:modules,ID_Module',
+            'ID_Prof' => 'sometimes|exists:professeurs,ID_Prof',
+        ]);
+
+        $quiz->update($validated);
+        return $quiz;
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Quiz $quiz)
     {
-        //
+        $quiz->delete();
+        return response()->json(['message' => 'Quiz deleted']);
     }
 }

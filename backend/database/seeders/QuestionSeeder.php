@@ -4,8 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\Question;
-use Faker\Factory as Faker;
+use Illuminate\Support\Facades\DB;
 
 class QuestionSeeder extends Seeder
 {
@@ -14,15 +13,39 @@ class QuestionSeeder extends Seeder
      */
     public function run(): void
     {
-        $faker = Faker::create();
-
-        for ($i = 0; $i < 20; $i++) {
-            Question::createQuestion(
-                $i + 1,                               // Num_Ordre
-                $faker->numberBetween(1, 5),          // Point_Question
-                $faker->sentence(6),                  // Enonce_Question
-                $faker->numberBetween(1, 5)           // ID_Quiz
-            );
-        }
+        DB::table('questions')->insert([
+            [
+                'Num_Ordre'        => 1,
+                'Point_Question'   => 2,
+                'Enonce_Question'  => 'Que signifie PHP ?',
+                'ID_Quiz'          => 1, // Quiz PHP
+                'created_at'       => now(),
+                'updated_at'       => now(),
+            ],
+            [
+                'Num_Ordre'        => 2,
+                'Point_Question'   => 3,
+                'Enonce_Question'  => 'Quelle est la différence entre GET et POST ?',
+                'ID_Quiz'          => 1,
+                'created_at'       => now(),
+                'updated_at'       => now(),
+            ],
+            [
+                'Num_Ordre'        => 1,
+                'Point_Question'   => 2,
+                'Enonce_Question'  => 'Que fait Artisan dans Laravel ?',
+                'ID_Quiz'          => 2, // Quiz Laravel
+                'created_at'       => now(),
+                'updated_at'       => now(),
+            ],
+            [
+                'Num_Ordre'        => 1,
+                'Point_Question'   => 2,
+                'Enonce_Question'  => 'Quelle est la dérivée de x² ?',
+                'ID_Quiz'          => 3, // Quiz Math
+                'created_at'       => now(),
+                'updated_at'       => now(),
+            ],
+        ]);
     }
 }

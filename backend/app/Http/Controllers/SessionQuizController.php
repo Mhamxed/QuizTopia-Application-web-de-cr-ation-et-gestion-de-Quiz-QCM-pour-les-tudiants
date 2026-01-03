@@ -7,59 +7,40 @@ use Illuminate\Http\Request;
 
 class SessionQuizController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
+    public function index() { return Session_Quiz::with(['etudiant','quiz','resultats'])->get(); }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'Date_Passage' => 'required|date',
+            'Score_Obtenu' => 'required|numeric',
+            'Duree_Effective' => 'required|integer',
+            'ID_Etu' => 'required|exists:etudiants,ID_Etudiant',
+            'ID_Quiz' => 'required|exists:quizzes,ID_Quiz',
+        ]);
+
+        return Session_Quiz::create($validated);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Session_Quiz $session_Quiz)
+    public function show(Session_Quiz $Session_Quiz) { return $Session_Quiz->load(['etudiant','quiz','resultats']); }
+
+    public function update(Request $request, Session_Quiz $Session_Quiz)
     {
-        //
+        $validated = $request->validate([
+            'Date_Passage' => 'sometimes|date',
+            'Score_Obtenu' => 'sometimes|numeric',
+            'Duree_Effective' => 'sometimes|integer',
+            'ID_Etu' => 'sometimes|exists:etudiants,ID_Etudiant',
+            'ID_Quiz' => 'sometimes|exists:quizzes,ID_Quiz',
+        ]);
+
+        $Session_Quiz->update($validated);
+        return $Session_Quiz;
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Session_Quiz $session_Quiz)
+    public function destroy(Session_Quiz $sessionQuiz)
     {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Session_Quiz $session_Quiz)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Session_Quiz $session_Quiz)
-    {
-        //
+        $sessionQuiz->delete();
+        return response()->json(['message' => 'SessionQuiz deleted']);
     }
 }

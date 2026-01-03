@@ -7,59 +7,44 @@ use Illuminate\Http\Request;
 
 class ProfesseurController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        return Professeur::with('quizzes')->get();
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'Nom' => 'required|string|max:255',
+            'Prenom' => 'required|string|max:255',
+            'Email' => 'required|email|unique:professeurs,Email',
+            'MotDePasse' => 'required|string',
+        ]);
+
+        return Professeur::create($validated);
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Professeur $professeur)
     {
-        //
+        return $professeur->load('quizzes');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Professeur $professeur)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Professeur $professeur)
     {
-        //
+        $validated = $request->validate([
+            'Nom' => 'sometimes|string|max:255',
+            'Prenom' => 'sometimes|string|max:255',
+            'Email' => 'sometimes|email|unique:professeurs,Email,' . $professeur->ID_Prof . ',ID_Prof',
+            'MotDePasse' => 'sometimes|string',
+        ]);
+
+        $professeur->update($validated);
+        return $professeur;
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Professeur $professeur)
     {
-        //
+        $professeur->delete();
+        return response()->json(['message' => 'Professeur deleted']);
     }
 }

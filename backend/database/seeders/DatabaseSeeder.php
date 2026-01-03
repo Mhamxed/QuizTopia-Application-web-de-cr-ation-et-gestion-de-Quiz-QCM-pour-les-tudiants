@@ -15,16 +15,18 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        // Run seeders in order respecting FK dependencies
         $this->call([
+            ModuleSeeder::class,
+            ProfesseurSeeder::class,
+            GroupeSeeder::class,
+            EtudiantSeeder::class,
+            QuizzesSeeder::class,
             QuestionSeeder::class,
-            ChoixSeeder::class,
+            SessionQuizzesSeeder::class,
             ResultatSeeder::class,
-        ]);
-        
-        // User::factory(10)->create();
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+            ChoixSeeder::class,
+            StatistiqueSeeder::class,
         ]);
     }
 }

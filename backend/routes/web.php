@@ -1,31 +1,83 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ModuleController;
+use App\Http\Controllers\ProfesseurController;
+use App\Http\Controllers\GroupeController;
+use App\Http\Controllers\EtudiantController;
+use App\Http\Controllers\QuizController;
 use App\Http\Controllers\QuestionController;
-use App\Http\Controllers\ChoixController;
+use App\Http\Controllers\SessionQuizController;
 use App\Http\Controllers\ResultatController;
+use App\Http\Controllers\ChoixController;
+use App\Http\Controllers\StatistiqueController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// -------------------- MODULES --------------------
+Route::get('/api/module', [ModuleController::class, 'index']);
+Route::get('/api/module/{id}', [ModuleController::class, 'show']);
+Route::post('/api/module', [ModuleController::class, 'store']);
+Route::put('/api/module/{id}', [ModuleController::class, 'update']);
+Route::delete('/api/module/{id}', [ModuleController::class, 'destroy']);
 
-// choixes routes
+// -------------------- PROFESSEURS --------------------
+Route::get('/api/professeur', [ProfesseurController::class, 'index']);
+Route::get('/api/professeur/{id}', [ProfesseurController::class, 'show']);
+Route::post('/api/professeur', [ProfesseurController::class, 'store']);
+Route::put('/api/professeur/{id}', [ProfesseurController::class, 'update']);
+Route::delete('/api/professeur/{id}', [ProfesseurController::class, 'destroy']);
+
+// -------------------- GROUPES --------------------
+Route::get('/api/groupe', [GroupeController::class, 'index']);
+Route::get('/api/groupe/{id}', [GroupeController::class, 'show']);
+Route::post('/api/groupe', [GroupeController::class, 'store']);
+Route::put('/api/groupe/{id}', [GroupeController::class, 'update']);
+Route::delete('/api/groupe/{id}', [GroupeController::class, 'destroy']);
+
+// -------------------- ETUDIANTS --------------------
+Route::get('/api/etudiant', [EtudiantController::class, 'index']);
+Route::get('/api/etudiant/{id}', [EtudiantController::class, 'show']);
+Route::post('/api/etudiant', [EtudiantController::class, 'store']);
+Route::put('/api/etudiant/{id}', [EtudiantController::class, 'update']);
+Route::delete('/api/etudiant/{id}', [EtudiantController::class, 'destroy']);
+
+// -------------------- QUIZZES --------------------
+Route::get('/api/quiz', [QuizController::class, 'index']);
+Route::get('/api/quiz/{id}', [QuizController::class, 'show']);
+Route::post('/api/quiz', [QuizController::class, 'store']);
+Route::put('/api/quiz/{id}', [QuizController::class, 'update']);
+Route::delete('/api/quiz/{id}', [QuizController::class, 'destroy']);
+
+// -------------------- QUESTIONS --------------------
+Route::get('/api/question', [QuestionController::class, 'index']);
+Route::get('/api/question/{id}', [QuestionController::class, 'show']);
+Route::post('/api/question', [QuestionController::class, 'store']);
+Route::put('/api/question/{id}', [QuestionController::class, 'update']);
+Route::delete('/api/question/{id}', [QuestionController::class, 'destroy']);
+
+// -------------------- SESSION QUIZZES --------------------
+Route::get('/api/session-quiz', [SessionQuizController::class, 'index']);
+Route::get('/api/session-quiz/{id}', [SessionQuizController::class, 'show']);
+Route::post('/api/session-quiz', [SessionQuizController::class, 'store']);
+Route::put('/api/session-quiz/{id}', [SessionQuizController::class, 'update']);
+Route::delete('/api/session-quiz/{id}', [SessionQuizController::class, 'destroy']);
+
+// -------------------- RESULTATS --------------------
+Route::get('/api/resultat', [ResultatController::class, 'index']);
+Route::get('/api/resultat/{id}', [ResultatController::class, 'show']);
+Route::post('/api/resultat', [ResultatController::class, 'store']);
+Route::put('/api/resultat/{id}', [ResultatController::class, 'update']);
+Route::delete('/api/resultat/{id}', [ResultatController::class, 'destroy']);
+
+// -------------------- CHOIX --------------------
 Route::get('/api/choix', [ChoixController::class, 'index']);
-Route::get('/api/choix/{id}', [ChoixController::class, 'show']);    
-Route::post('/api/choix', [ChoixController::class, 'store']);       
-Route::put('/api/choix/{id}', [ChoixController::class, 'update']);  
-Route::delete('/api/choix/{id}', [ChoixController::class, 'destroy']); 
+Route::get('/api/choix/{id}', [ChoixController::class, 'show']);
+Route::post('/api/choix', [ChoixController::class, 'store']);
+Route::put('/api/choix/{id}', [ChoixController::class, 'update']);
+Route::delete('/api/choix/{id}', [ChoixController::class, 'destroy']);
 
-// Resultats routes
-Route::get('/api/resultat', [ResultatController::class, 'index']);        
-Route::get('/api/resultat/{id}', [ResultatController::class, 'show']);    
-Route::post('/api/resultat', [ResultatController::class, 'store']);       
-Route::put('/api/resultat/{id}', [ResultatController::class, 'update']);  
-Route::delete('/api/resultat/{id}', [ResultatController::class, 'destroy']); 
-
-// Questions routes
-Route::get('/api/questions', [QuestionController::class, 'index']);
-Route::get('/api/questions/{id}', [QuestionController::class, 'show']);
-Route::post('/api/questions', [QuestionController::class, 'create']);
-Route::put('/api/questions/{id}', [QuestionController::class, 'update']);
-Route::delete('/api/questions/{id}', [QuestionController::class, 'delete']);
+// -------------------- STATISTIQUES --------------------
+Route::get('/api/statistique', [StatistiqueController::class, 'index']);
+Route::get('/api/statistique/{id}', [StatistiqueController::class, 'show']);
+Route::post('/api/statistique', [StatistiqueController::class, 'store']);
+Route::put('/api/statistique/{id}', [StatistiqueController::class, 'update']);
+Route::delete('/api/statistique/{id}', [StatistiqueController::class, 'destroy']);

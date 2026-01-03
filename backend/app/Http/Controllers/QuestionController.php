@@ -9,7 +9,8 @@ class QuestionController extends Controller
 {
     public function index()
     {
-        return Question::with('quiz')->get();
+        $questions = Question::all();
+        return view('question.index', compact('questions'));
     }
     public function store(Request $request)
     {
@@ -30,26 +31,30 @@ class QuestionController extends Controller
             ->where('ID_Question', $id)
             ->firstOrFail();
     }
+    public function edit($id)
+    {
+        $question = Question::findOrFail($id);
+        return view('question.edit', compact('question'));
+    }
+
+    // Handle update
     public function update(Request $request, $id)
     {
-        $question = Question::where('ID_Question', $id)->firstOrFail();
+        $question = Question::findOrFail($id);
 
-        $validated = $request->validate([
-            'Num_Ordre'        => 'sometimes|integer',
-            'Point_Question'   => 'sometimes|integer|min:0',
-            'Enonce_Question'  => 'sometimes|string',
-            'ID_Quiz'          => 'sometimes|exists:quizzes,ID_Quiz',
+        $question->update([
+            'Num_Ordre' => $request->Num_Ordre,
+            'Point_Question' => $request->Point_Question,
+            'Enonce_Question' => $request->Enonce_Question,
+            'ID_Quiz' => $request->ID_Quiz,
         ]);
 
-        $question->update($validated);
-
-        return response()->json($question);
+        return redirect()->route('question.index')->with('success', 'Question mise à jour avec succès !');
     }
     public function destroy($id)
     {
-        $question = Question::where('ID_Question', $id)->firstOrFail();
+        $question = Question::findOrFail($id);
         $question->delete();
-
-        return response()->json(['message' => 'Question deleted successfully']);
+        return redirect()->back()->with('success', 'Question deleted successfully!');
     }
 }

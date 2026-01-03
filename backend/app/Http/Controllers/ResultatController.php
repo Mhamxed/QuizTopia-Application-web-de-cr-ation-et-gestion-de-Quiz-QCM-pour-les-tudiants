@@ -7,9 +7,11 @@ use Illuminate\Http\Request;
 
 class ResultatController extends Controller
 {
+    
     public function index()
     {
-        return Resultat::with(['question', 'sessionQuiz'])->get();
+        $resultats = Resultat::all();
+        return view('resultat.index', compact('resultats'));
     }
     public function store(Request $request)
     {
@@ -29,25 +31,29 @@ class ResultatController extends Controller
             ->where('ID_Resultat', $id)
             ->firstOrFail();
     }
+    public function edit($id)
+    {
+        $resultat = Resultat::findOrFail($id);
+        return view('resultat.edit', compact('resultat'));
+    }
+
+    // Handle update
     public function update(Request $request, $id)
     {
-        $resultat = Resultat::where('ID_Resultat', $id)->firstOrFail();
+        $resultat = Resultat::findOrFail($id);
 
-        $validated = $request->validate([
-            'Points_Obtenus' => 'sometimes|numeric',
-            'ID_Question'   => 'sometimes|exists:questions,ID_Question',
-            'ID_Session'    => 'sometimes|exists:session_quizzes,ID_Session',
+        $resultat->update([
+            'Points_Obtenus' => $request->Points_Obtenus,
+            'ID_Question' => $request->ID_Question,
+            'ID_Session' => $request->ID_Session,
         ]);
 
-        $resultat->update($validated);
-
-        return response()->json($resultat);
+        return redirect()->route('resultat.index')->with('success', 'Resultat mis à jour avec succès !');
     }
     public function destroy($id)
     {
-        $resultat = Resultat::where('ID_Resultat', $id)->firstOrFail();
+        $resultat = Resultat::findOrFail($id);
         $resultat->delete();
-
-        return response()->json(['message' => 'Resultat deleted successfully']);
+        return redirect()->back()->with('success', 'Resultat deleted successfully!');
     }
 }

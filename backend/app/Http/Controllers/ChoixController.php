@@ -9,7 +9,8 @@ class ChoixController extends Controller
 {
     public function index()
     {
-        return Choix::with(['question', 'resultat'])->get();
+        $choixes = Choix::all();
+        return view('choix.index', compact('choixes'));
     }
 
     public function store(Request $request)
@@ -33,27 +34,32 @@ class ChoixController extends Controller
             ->firstOrFail();
     }
 
+    // Show edit form
+    public function edit($id)
+    {
+        $choix = Choix::findOrFail($id);
+        return view('choix.edit', compact('choix'));
+    }
+
+    // Handle update
     public function update(Request $request, $id)
     {
-        $choix = Choix::where('ID_Choix', $id)->firstOrFail();
+        $choix = Choix::findOrFail($id);
 
-        $validated = $request->validate([
-            'Texte_Choix'  => 'sometimes|string',
-            'Est_Correct' => 'sometimes|boolean',
-            'ID_Question' => 'sometimes|exists:questions,ID_Question',
-            'ID_Resultat' => 'sometimes|exists:resultats,ID_Resultat',
+        $choix->update([
+            'Texte_Choix' => $request->Texte_Choix,
+            'Est_Correct' => $request->has('Est_Correct') ? 1 : 0,
+            'ID_Resultat' => $request->ID_Resultat,
+            'ID_Question' => $request->ID_Question,
         ]);
 
-        $choix->update($validated);
-
-        return response()->json($choix);
+        return redirect()->route('choix.index')->with('success', 'Choix mis à jour avec succès !');
     }
 
     public function destroy($id)
     {
-        $choix = Choix::where('ID_Choix', $id)->firstOrFail();
+        $choix = Choix::findOrFail($id);
         $choix->delete();
-
-        return response()->json(['message' => 'Choix deleted successfully']);
+        return redirect()->back()->with('success', 'Choix deleted successfully!');
     }
 }

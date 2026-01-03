@@ -1,5 +1,4 @@
 <?php
-
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ModuleController;
 use App\Http\Controllers\ProfesseurController;
@@ -48,11 +47,10 @@ Route::put('/api/quiz/{id}', [QuizController::class, 'update']);
 Route::delete('/api/quiz/{id}', [QuizController::class, 'destroy']);
 
 // -------------------- QUESTIONS --------------------
-Route::get('/api/question', [QuestionController::class, 'index']);
-Route::get('/api/question/{id}', [QuestionController::class, 'show']);
-Route::post('/api/question', [QuestionController::class, 'store']);
-Route::put('/api/question/{id}', [QuestionController::class, 'update']);
-Route::delete('/api/question/{id}', [QuestionController::class, 'destroy']);
+Route::get('/api/question', [QuestionController::class, 'index'])->name('question.index');
+Route::get('/api/question/{id}/edit', [QuestionController::class, 'edit'])->name('question.edit');
+Route::put('/api/question/{id}', [QuestionController::class, 'update'])->name('question.update');
+Route::delete('/api/question/{id}', [QuestionController::class, 'destroy'])->name('question.destroy');
 
 // -------------------- SESSION QUIZZES --------------------
 Route::get('/api/session-quiz', [SessionQuizController::class, 'index']);
@@ -62,18 +60,18 @@ Route::put('/api/session-quiz/{id}', [SessionQuizController::class, 'update']);
 Route::delete('/api/session-quiz/{id}', [SessionQuizController::class, 'destroy']);
 
 // -------------------- RESULTATS --------------------
-Route::get('/api/resultat', [ResultatController::class, 'index']);
-Route::get('/api/resultat/{id}', [ResultatController::class, 'show']);
-Route::post('/api/resultat', [ResultatController::class, 'store']);
-Route::put('/api/resultat/{id}', [ResultatController::class, 'update']);
-Route::delete('/api/resultat/{id}', [ResultatController::class, 'destroy']);
+Route::get('/api/resultat', [ResultatController::class, 'index'])->name('resultat.index');
+Route::get('/api/resultat/{id}/edit', [ResultatController::class, 'edit'])->name('resultat.edit');
+Route::put('/api/resultat/{id}', [ResultatController::class, 'update'])->name('resultat.update');
+Route::delete('/api/resultat/{id}', [ResultatController::class, 'destroy'])->name('resultat.destroy');
 
 // -------------------- CHOIX --------------------
-Route::get('/api/choix', [ChoixController::class, 'index']);
+Route::get('/api/choix', [ChoixController::class, 'index'])->name('choix.index');
 Route::get('/api/choix/{id}', [ChoixController::class, 'show']);
+Route::get('/choix/{id}/edit', [ChoixController::class, 'edit'])->name('choix.edit');
 Route::post('/api/choix', [ChoixController::class, 'store']);
-Route::put('/api/choix/{id}', [ChoixController::class, 'update']);
-Route::delete('/api/choix/{id}', [ChoixController::class, 'destroy']);
+Route::put('/api/choix/{id}', [ChoixController::class, 'update'])->name('choix.update');
+Route::delete('/api/choix/{id}', [ChoixController::class, 'destroy'])->name('choix.destroy');
 
 // -------------------- STATISTIQUES --------------------
 Route::get('/api/statistique', [StatistiqueController::class, 'index']);
